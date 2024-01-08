@@ -13,6 +13,8 @@ import {
 
 import React, { useEffect } from "react";
 import { useAppContext } from "../utils/AppContext";
+import sideBG from "../assets/side-background.png"
+import profileBG from "../assets/profileBg.png"
 
 const profile = () => {
   const { appState, getTokenData, putTokenData } = useAppContext();
@@ -112,29 +114,33 @@ const profile = () => {
   
 
   return (
-    <div className="container mx-auto mt-8 p-4">
-      <h1 className="text-3xl font-bold mb-4 flex justify-center">Profile Page</h1>
-      <div className="border border-gray-200 p-4 rounded-md">
-        <h2 className="text-xl font-semibold mb-2">Profile Details</h2>
-        <div className="mb-2">
-          <span className="font-semibold">Name:</span> {profileDetails.name}
+    <div className="flex">
+      <div>
+        <img className="h-screen" src={sideBG} alt="" />
+      </div>
+    <div className=" flex flex-col justify-center h-full absolute left-[700px]">
+      <div style={{backgroundImage: `url(${profileBG})`}} className="border flex flex-col items-center justify-center border-black w-[434px] h-[547px] rounded-md">
+        <h2 className="text-[32px] text-[#7A999C] font-bold mt-[-80px] ml-[-150px] mb-[70px]">MY PROFILE</h2>
+        <div className="mb-2 flex text-left justify-center w-[200px]">
+          <span className="text-[#7A999C] text-left text-[20px] font-serif mr-[50px]">Name:</span> {profileDetails.name}
         </div>
-        <div className="mb-2">
-          <span className="font-semibold">Type:</span> {profileDetails.type}
+        <div className="mb-2 flex justify-center w-[200px]">
+          <span className="text-[#7A999C] text-[20px] font-serif mr-[50px]">Type:</span> {profileDetails.type}
         </div>
-        <div className="mb-2">
-          <span className="font-semibold">Loyalty Points:</span>{" "}
-          {profileDetails.loyaltyPoints}
+        <div className="mb-2 flex justify-between text-left w-[170px]">
+          <span className="text-[#7A999C] text-left text-[20px] font-serif mr-[50px]">Loyalty Points:</span>{" "}
+          <span className="text-left">{profileDetails.loyaltyPoints}</span>
         </div>
         <div>
-          <h1>Current Supply {appState.currentSupply}</h1>
+          <h1 className="text-[#7A999C] text-left text-[20px] font-serif ">Current Supply {appState.currentSupply}</h1>
         </div>
         <div class="w-[200px] flex flex-col h-10 p-5 m-3">
-        <button onClick={() => mint()} class="px-6 py-3 bg-blue-300 rounded-lg text-white font-bold">
+        <button onClick={() => mint()} class="px-6 py-3 bg-[#7A999C] rounded-lg text-white font-bold">
           Mint
         </button>
         </div>
       </div>
+    </div>
     </div>
   );
 };
