@@ -116,7 +116,7 @@ export const AppContextProvider = ({ children }) => {
         <Loading />
       ) : (
         <div className="">
-          <Navbar />
+          {/* <Navbar /> */}
           {children}
 
           {/* <Footer /> */}

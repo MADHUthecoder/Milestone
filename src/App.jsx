@@ -36,9 +36,9 @@ function App() {
         <Route
           path="/createprofile"
           element={
-            <PrivateRouteGuard>
+            // <PrivateRouteGuard>
               <CreateProfile />
-            </PrivateRouteGuard>
+            // </PrivateRouteGuard>
           }
         />
         <Route path="/details/:id" element={<RestaurantModal />} />

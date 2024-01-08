@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Modal from "react-modal";
 import { Contract } from "starknet";
 
-import contractAbi from "../../../smart-contracts/nft.json";
+// import contractAbi from "../../../smart-contracts/";
 const contractAddress =
   "0x5302e3d1d237dd13dbca7bd0e6448c5248dae4382010b39b21fc32efc51e07a";
 
