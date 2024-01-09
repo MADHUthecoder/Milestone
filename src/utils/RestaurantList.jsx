@@ -22,7 +22,7 @@ const RestaurantList = () => {
   ];
 
   return (
-    <div>
+    <div className="grid grid-cols-3">
       {restaurants.map((restaurant) => (
         <RestaurantCard
           key={restaurant.id}

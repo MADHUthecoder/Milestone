@@ -5,3 +5,13 @@
 body {
     height: 100vh;
 }
+
+@layer components {
+    .text-stroke{
+        -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgba(250, 250, 250, 0.5);
+        
+}
+    }
+
+    

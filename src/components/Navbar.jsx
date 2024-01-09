@@ -4,7 +4,7 @@ import { useAppContext } from "../utils/AppContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-export default function App() {
+export default function Navbar() {
   const { connectWallet, appState, disconnectWallet, getTokenData } = useAppContext();
   const navigate = useNavigate();
   const [profileState, setProfileState] = useState(false);

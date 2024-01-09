@@ -9,7 +9,11 @@ export default {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'title': ['Luckiest Guy'],
+      }
+    },
   },
   darkMode: "class",
   plugins: [nextui(), require("daisyui")],
