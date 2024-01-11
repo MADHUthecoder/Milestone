@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Modal from "react-modal";
 import { Contract } from "starknet";
+import bg from "../assets/side-background.png";
 
 // import contractAbi from "../../../smart-contracts/";
 const contractAddress =
@@ -11,23 +12,24 @@ const RestaurantModal = () => {
   const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [reviewData, setReviewData] = useState({ reviewText: "", rating: "" });
+  const [amount, setAmount] = useState(0);
   const modalStyle = {
     overlay: {
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      backgroundColor: "rgba(0, 0, 0, 0.5)", // Change the alpha value for transparency
     },
     content: {
       top: "50%",
       left: "50%",
       right: "auto",
       bottom: "auto",
-      marginRight: "-50%",
       transform: "translate(-50%, -50%)",
-      maxWidth: "400px",
+      width: "80%", // Adjust the width as needed
+      maxWidth: "800px", // You can set a max-width if needed
       padding: "20px",
-      border: "1px solid #ccc",
-      borderRadius: "5px",
+      border: "none", // Remove the border
+      borderRadius: "10px", // Add border-radius for rounded corners
       boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-      backgroundColor: "#fff",
+      backgroundColor: "rgba(255, 255, 255, 0.9)", // Adjust the alpha value for modal background
     },
   };
   const toggleModal = () => {
@@ -57,7 +59,7 @@ const RestaurantModal = () => {
         console.log("mycontract", newContract, appState);
         const response = await newContract.set_loyalty(
           appState.address.address,
-          reviewData.rating / 10
+          amount / 10
         );
         console.log(">> response 0", response);
         await provider.waitForTransaction(response.transaction_hash);
@@ -120,51 +122,41 @@ const RestaurantModal = () => {
   } = restaurant;
 
   return (
-    <div className="container mx-auto mt-8 p-4">
-      <img
-        src={imageUrl}
-        alt={name}
-        className="w-full h-40 object-cover rounded-md mb-4"
-      />
-      <h2 className="text-2xl font-bold mb-2">{name}</h2>
-      <p className="text-gray-600 mb-4">{location}</p>
-      <p className="mb-4">{description}</p>
-      <div className="flex items-center mb-4">
-        <span className="text-yellow-500 mr-1">&#9733;</span>
-        <span>{averageRating}</span>
+    <div className="max-w-2xl mx-auto flex flex-col items-center gap-5">
+      <h1 className="text-3xl font-bold mb-4">{name}</h1>
+      <div className="flex flex-col justify-between">
+        <img
+          src={imageUrl}
+          alt="Restaurant"
+          className=" w-96 h-unit-60 object-cover mb-4"
+        />
+        <div className="flex justify-between mb-4">
+          <p className="text-gray-600">Location:{location}</p>
+          <p className="text-yellow-500">Rating:{averageRating}/5</p>
+        </div>
       </div>
-
-      <h3 className="text-lg font-semibold mb-2">Images:</h3>
-      <div className="flex flex-wrap mb-4">
-        {images.map((image, index) => (
-          <img
-            key={index}
-            src={image}
-            alt={`Image ${index}`}
-            className="w-32 h-32 object-cover mr-2 mb-2 rounded-md"
-          />
-        ))}
+      <div className="text-gray-800">
+        <p>{description}</p>
       </div>
-
-      <h3 className="text-lg font-semibold mb-2">Reviews:</h3>
-      <ul className="list-disc pl-4">
-        {reviews.map((review, index) => (
-          <li key={index} className="mb-2">
-            {review}
-          </li>
-        ))}
-      </ul>
-      <h3 className="text-lg font-semibold mb-2">
-        Wanna claim loyalty points? Scan the QR in the bill.
-      </h3>
-
-      {/* Review button */}
-      <button
-        onClick={toggleModal}
-        className="bg-blue-500 text-white px-4 py-2 rounded-md"
-      >
-        Review us
-      </button>
+      <div className="flex flex-col w-full  gap-3">
+        <h4 className="text-[#2d626E] font-bold">Images</h4>
+        <div className="flex gap-6 justify-between">
+          <img src={bg} className="w-40 h-24" />
+          <img src={bg} className="w-40 h-24" />
+          <img src={bg} className="w-40 h-24" />
+        </div>
+      </div>
+      <div className="flex flex-col gap-2 justify-center">
+        <p className="font-bold"> Wanna Claim the Loyalty Points ? </p>
+        <div className="flex justify-center">
+          <button
+            onClick={toggleModal}
+            className="bg-[#4B687A] text-white px-4 py-2 rounded-md"
+          >
+            Review us
+          </button>
+        </div>
+      </div>
       <Modal
         isOpen={isModalOpen}
         onRequestClose={toggleModal}
@@ -183,7 +175,7 @@ const RestaurantModal = () => {
               name="reviewText"
               value={reviewData.reviewText}
               onChange={handleInputChange}
-              className="w-full border rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+              className="w-full border rounded-md px-3 py-2 focus:outline-none focus:border-[#4B687A]"
               placeholder="Enter the GST no"
               required
             />
@@ -195,9 +187,12 @@ const RestaurantModal = () => {
             <input
               type="number"
               name="rating"
-              value={reviewData.rating}
-              onChange={handleInputChange}
-              className="w-full border rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+              value={amount}
+              onChange={(e) => {
+                setAmount(e.target.value);
+                console.log(e.target.value);
+              }}
+              className="w-full border rounded-md px-3 py-2 focus:outline-none focus:border-[#4B687A]"
               placeholder="Enter your rating (1-5)"
               min="1"
               max="5"
@@ -213,20 +208,21 @@ const RestaurantModal = () => {
               name="rating"
               value={reviewData.rating}
               onChange={handleInputChange}
-              className="w-full border rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+              className="w-full border rounded-md px-3 py-2 focus:outline-none focus:border-[#4B687A]"
               placeholder="Enter your rating (1-5)"
               min="1"
               max="5"
               required
             />
           </div>
-
-          <button
-            type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded-md"
-          >
-            Submit Review
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className=" text-white py-2 px-4 rounded-md bg-[#4B687A]"
+            >
+              Submit Review
+            </button>
+          </div>
         </form>
       </Modal>
     </div>
