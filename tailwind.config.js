@@ -11,8 +11,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'title': ['Luckiest Guy'],
-      }
+        title: ["Luckiest Guy"],
+      },
+      backgroundImage: {
+        hero: "url('./src/assets/navbg.jpeg')",
+      },
     },
   },
   darkMode: "class",
